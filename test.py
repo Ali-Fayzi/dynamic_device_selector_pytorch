@@ -1,5 +1,6 @@
-from utils import check_cuda_availability
+import torch
 import torch.nn as nn
+from utils import check_cuda_availability
 class MyNeuralNetwork(nn.Module):
     def __init__(self):
         super(MyNeuralNetwork, self).__init__()
