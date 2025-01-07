@@ -21,21 +21,21 @@ class MyNeuralNetwork(nn.Module):
         x = self.fc2(x)
         return x
 
-def fill_gpu_memory():
+def fill_gpu_memory(precent):
     if not torch.cuda.is_available():
         print("CUDA is not available.")
         return
     try:
         total_memory = torch.cuda.get_device_properties(0).total_memory
         print(f"Total GPU memory: {total_memory / (1024 ** 2):.2f} MB")
-        tensor_size = int(0.98 * (total_memory )) 
+        tensor_size = int((precent/100) * (total_memory )) 
         print(f"Allocating tensor of size: {tensor_size / (1024 ** 2):.2f} MB")
         large_tensor = torch.empty(int(tensor_size), dtype=torch.uint8, device="cuda")
         print("GPU memory filled successfully.")
     except RuntimeError as e:
         print(f"Failed to allocate memory: {e}")
 if __name__ =="__main__":
-  fill_gpu_memory() #fill 98% of memory
+  fill_gpu_memory(precent=98) #fill 98% of memory
   # define input size and neural network
   input_size = (6400, 6400)  
   model = MyNeuralNetwork()
